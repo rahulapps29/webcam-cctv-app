@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Webcam CCTV</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        border: 2px solid #333;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Live CCTV Feed</h1>
+    <img id="cctv-feed" alt="CCTV Feed" />
+    <script>
+      const socket = io();
+      const imgElement = document.getElementById("cctv-feed");
+
+      // Listen for image data
+      socket.on("image", (data) => {
+        imgElement.src = `data:image/jpeg;base64,${data}`;
+      });
+    </script>
+  </body>
+</html>
